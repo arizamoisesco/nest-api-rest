@@ -37,20 +37,22 @@ export class ProductsService {
 
     update(QueryId: number, payload: any){
 
-        const updateProduct = {
-            id: QueryId,
-            ...payload,
-        }
-
-        const productFound = this.products.findIndex((product) => product.id === QueryId)
-
+        const product = this.findOne(QueryId)
         let message = ''
 
-       if(productFound > 0){
-           this.products[productFound] = updateProduct;
-           message = 'Product update'
-       } else {
-           message = 'Product not found'
+        const productFound = this.products.findIndex((product) => product.id === QueryId)
+        if (product){
+
+            
+            this.products[productFound] = {
+                ...product,
+                ...payload,
+            };
+            message = `Product  ${product.name} update`
+            
+        }
+         else {
+           message = `Product ${product.name} not found`
        }
 
        return message;
