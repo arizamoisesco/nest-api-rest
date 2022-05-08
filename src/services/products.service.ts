@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import {Product} from './../entities/product.entity'
 
 
@@ -58,7 +58,13 @@ export class ProductsService {
        return message;
     }
 
-    delete(){
+    delete(QueryId: number){
+        let message: any = '';
+        const productFound = this.products.findIndex((product) => product.id === QueryId)
+        if(productFound === -1){
 
+        }
+        this.products.splice(productFound,1);
+        return message = true
     }
 }
